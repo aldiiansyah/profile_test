@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberRealm - Enter the Neon Grid</title>
+    <style>
+        /* Base Reset & Variables */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-color: #0b0c10;
+            --card-bg: #1f2833;
+            --primary-accent: #66fcf1;
+            --secondary-accent: #45f3ff;
+            --text-color: #c5c6c7;
+            --heading-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: rgba(11, 12, 16, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle, rgba(31,40,51,0.4) 0%, rgba(11,12,16,1) 100%), 
+                        url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1920') no-repeat center center/cover;
+            margin-top: 0;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: var(--heading-color);
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            color: #a5a6a7;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 35px;
+            background-color: var(--primary-accent);
+            color: #0b0c10;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px var(--primary-accent);
+        }
+
+        /* Section Global Settings */
+        section {
+            padding: 100px 8% 80px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            color: var(--heading-color);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--primary-accent);
+            margin: 10px auto 0 auto;
+        }
+
+        /* About Section */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--primary-accent);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: #c5c6c7;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 350px;
+            background: url('https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=800') no-repeat center center/cover;
+            border-radius: 8px;
+            border: 1px solid rgba(102, 252, 241, 0.2);
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 8px;
+            text-align: center;
+            border-top: 3px solid transparent;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .feature-card:hover {
+            border-top: 3px solid var(--primary-accent);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--heading-color);
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            height: 200px;
+            border: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #07080a;
+            padding: 40px 8%;
+            text-align: center;
+            border-top: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        footer p {
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: #606266;
+        }
+
+        .social-icons a {
+            color: var(--text-color);
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+            .nav-links {
+                display: none; /* simple hidden nav for mobile */
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            .about-image {
+                height: 250px;
+            }
+            section {
+                padding: 80px 5% 60px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">CyberRealm</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">Story</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#gallery">Media</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Banner -->
+    <section id="hero" class="hero">
+        <h1>CyberRealm</h1>
+        <p>A fast-paced neon shooter set in a fractured digital world. Jack in, upgrade your arsenal, and break the simulation.</p>
+        <a href="#about" class="btn">Learn More</a>
+    </section>
+
+    <!-- About / Story Section -->
+    <section id="about">
+        <h2 class="section-title">The Story</h2>
+        <div class="about-container">
+            <div class="about-text">
+                <h3>Welcome to Neo-Grid</h3>
+                <p>The year is 2099. Society resides in a vast digital simulation overseen by an autonomous AI system that has turned hostile. You play as a rogue operative code-named "Specter", aiming to disable the mainframe from within.</p>
+                <p>Equipped with state-of-the-art cybernetic weaponry and agility tools, you will run, dash, and hack your way through hostile architecture to reclaim control.</p>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" style="background-color: #0f1115;">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>High-Speed Action</h3>
+                <p>Combine parkour, wall-running, and quick dashes to stay ahead of hostile AI countermeasures.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛠️</div>
+                <h3>Modular Weapons</h3>
+                <p>Upgrade and customize your energy weapons with over 50 unique combat modifications.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌌</div>
+                <h3>Dynamic Levels</h3>
+                <p>Navigate procedural neon landscapes that shift and adapt dynamically to your playstyle.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery / Media Section -->
+    <section id="gallery">
+        <h2 class="section-title">Screenshots</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600" alt="Gameplay 1">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1553481187-be93c21490a9?q=80&w=600" alt="Gameplay 2">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1612287230202-1bf1d85d1bdf?q=80&w=600" alt="Gameplay 3">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600" alt="Gameplay 4">
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CyberRealm. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="#">Discord</a> | 
+            <a href="#">Twitter</a> | 
+            <a href="#">YouTube</a>
+        </div>
+    </footer>
+
+</body>
+</html>
